@@ -183,7 +183,55 @@
     placeholder="Type your question..."
   >
 
-  <button class="send" onclick="sendMessage()">
+  <button class="send" onclick="sendMessage(async function sendMessage() {
+  var input = document.getElementById("userInput");
+  var text = input.value.trim();
+
+  if (text === "") return;
+
+  var messages = document.getElementById("messages");
+
+  var userMessage = document.createElement("div");
+  userMessage.className = "message user-message";
+  userMessage.innerText = text;
+  messages.appendChild(userMessage);
+
+  input.value = "";
+
+  var pearlMessage = document.createElement("div");
+  pearlMessage.className = "message pearl-message";
+  pearlMessage.innerText = "Pearl is thinking... 💎";
+  messages.appendChild(pearlMessage);
+
+  try {
+    var response = await fetch(
+      "YOUR_SUPABASE_PROJECT_URL/functions/v1/rapid-task",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: text
+        })
+      }
+    );
+
+    var data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Something went wrong.");
+    }
+
+    pearlMessage.innerText = data.reply || "I couldn't get an answer.";
+  } catch (error) {
+    pearlMessage.innerText =
+      "Sorry, I couldn't connect to Pearl right now. 💎";
+    console.error(error);
+  }
+
+  messages.scrollTop = messages.scrollHeight;
+      })">
     Send
   </button>
 
