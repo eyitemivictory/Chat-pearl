@@ -1,25 +1,18 @@
-<!DOCTYPE html><html lang="en">
+    <!DOCTYPE html><html>
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Pearl</title>  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
     body {
+      margin: 0;
       background: #f8f7fc;
+      font-family: Arial, sans-serif;
       color: #171522;
     }
 
     .app {
       max-width: 500px;
-      min-height: 100vh;
       margin: auto;
-      padding: 35px 22px;
+      padding: 35px 20px;
     }
 
     h1 {
@@ -29,53 +22,47 @@
 
     .subtitle {
       color: #777481;
-      font-size: 16px;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
     }
 
     .pearl {
       width: 110px;
       height: 110px;
-      border-radius: 55px;
+      margin: 30px auto;
       background: white;
+      border-radius: 55px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      margin: 0 auto 35px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-      font-size: 48px;
+      align-items: center;
+      font-size: 50px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.12);
     }
 
     .question {
       font-size: 20px;
       font-weight: bold;
-      margin-bottom: 15px;
     }
 
     .card {
-      background: white;
-      border: none;
       width: 100%;
+      border: 0;
+      background: white;
       padding: 20px;
-      margin-bottom: 14px;
+      margin: 10px 0;
       border-radius: 18px;
       text-align: left;
+      font-size: 16px;
       cursor: pointer;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-    }
-
-    .card:active {
-      transform: scale(0.98);
     }
 
     .icon {
       font-size: 28px;
-      margin-bottom: 8px;
     }
 
     .card-title {
       font-size: 18px;
       font-weight: bold;
+      margin-top: 8px;
     }
 
     .card-text {
@@ -88,32 +75,31 @@
     }
 
     .back {
-      background: none;
-      border: none;
+      border: 0;
+      background: transparent;
       font-size: 17px;
+      padding: 10px 0;
       cursor: pointer;
-      margin-bottom: 25px;
     }
 
-    .chat-box {
-      min-height: 60vh;
+    .messages {
       background: white;
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 15px;
+      min-height: 55vh;
+      padding: 15px;
+      border-radius: 18px;
+      margin: 20px 0;
       overflow-y: auto;
     }
 
     .message {
-      padding: 12px 15px;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      max-width: 85%;
-      line-height: 1.4;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 15px;
+      max-width: 80%;
     }
 
     .pearl-message {
-      background: #f0eef7;
+      background: #eeeaf7;
     }
 
     .user-message {
@@ -122,164 +108,136 @@
       margin-left: auto;
     }
 
-    .input-area {
+    .input-row {
       display: flex;
       gap: 8px;
     }
 
     input {
       flex: 1;
-      padding: 15px;
+      padding: 14px;
       border: 1px solid #ddd;
-      border-radius: 15px;
+      border-radius: 14px;
       font-size: 16px;
-      outline: none;
     }
 
     .send {
-      border: none;
+      border: 0;
       background: #171522;
       color: white;
       padding: 0 18px;
-      border-radius: 15px;
+      border-radius: 14px;
       font-size: 16px;
-      cursor: pointer;
     }
-  </style></head><body>  <div class="app"><!-- HOME -->
-<div id="home">
+  </style></head><body><div class="app">  <div id="home"><h1>Hi, I'm Pearl 💎</h1>
 
-  <h1>Hi, I'm Pearl 💎</h1>
-
-  <p class="subtitle">
-    What are we figuring out today?
-  </p>
-
-  <div class="pearl">✦</div>
-
-  <p class="question">What can I help with?</p>
-
-  <button class="card" onclick="openChat()">
-    <div class="icon">💬</div>
-    <div class="card-title">Chat with Pearl</div>
-    <div class="card-text">Ask me anything</div>
-  </button>
-
-  <button class="card">
-    <div class="icon">📷</div>
-    <div class="card-title">Show Pearl</div>
-    <div class="card-text">Show me something</div>
-  </button>
-
-  <button class="card">
-    <div class="icon">🎙️</div>
-    <div class="card-title">Talk to Pearl</div>
-    <div class="card-text">Have a conversation</div>
-  </button>
-
+<div class="subtitle">
+  What are we figuring out today?
 </div>
 
-<!-- CHAT -->
-<div id="chat">
+<div class="pearl">✦</div>
 
-  <button class="back" onclick="goHome()">← Back</button>
+<div class="question">
+  What can I help with?
+</div>
 
-  <h1>Chat with Pearl 💎</h1>
+<button class="card" onclick="openChat()">
+  <div class="icon">💬</div>
+  <div class="card-title">Chat with Pearl</div>
+  <div class="card-text">Ask me anything</div>
+</button>
 
-  <p class="subtitle">Ask me anything.</p>
+<button class="card" onclick="showMessage('Show Pearl is coming soon! 📷')">
+  <div class="icon">📷</div>
+  <div class="card-title">Show Pearl</div>
+  <div class="card-text">Show me something</div>
+</button>
 
-  <div class="chat-box" id="messages">
+<button class="card" onclick="showMessage('Talk to Pearl is coming soon! 🎙️')">
+  <div class="icon">🎙️</div>
+  <div class="card-title">Talk to Pearl</div>
+  <div class="card-text">Have a conversation</div>
+</button>
 
-    <div class="message pearl-message">
-      Hi! I'm Pearl 💎 What would you like to figure out today?
-    </div>
+  </div>  <div id="chat"><button class="back" onclick="goHome()">← Back</button>
 
-  </div>
+<h1>Chat with Pearl 💎</h1>
 
-  <div class="input-area">
+<div class="subtitle">
+  Ask me anything.
+</div>
 
-    <input
-      id="userInput"
-      type="text"
-      placeholder="Type your question..."
-      onkeydown="if(event.key === 'Enter') sendMessage()"
-    >
+<div class="messages" id="messages">
 
-    <button class="send" onclick="sendMessage()">
-      Send
-    </button>
-
+  <div class="message pearl-message">
+    Hi! I'm Pearl 💎 What would you like to figure out today?
   </div>
 
 </div>
 
-  </div>  <script>
+<div class="input-row">
 
-    function openChat() {
-      document.getElementById("home").style.display = "none";
-      document.getElementById("chat").style.display = "block";
-    }
+  <input
+    id="userInput"
+    type="text"
+    placeholder="Type your question..."
+  >
 
-    function goHome() {
-      document.getElementById("chat").style.display = "none";
-      document.getElementById("home").style.display = "block";
-    }
+  <button class="send" onclick="sendMessage()">
+    Send
+  </button>
 
-    function sendMessage() {
+</div>
 
-      const input = document.getElementById("userInput");
-      const text = input.value.trim();
+  </div></div><script>
 
-      if (text === "") return;
-
-      const messages = document.getElementById("messages");
-
-      const userMessage = document.createElement("div");
-      userMessage.className = "message user-message";
-      userMessage.textContent = text;
-
-      messages.appendChild(userMessage);
-
-      input.value = "";
-
-      setTimeout(function() {
-
-        const pearlMessage = document.createElement("div");
-        pearlMessage.className = "message pearl-message";
-
-        pearlMessage.textContent =
-          "let response = "";
-
-if (text.toLowerCase().includes("hello") ||
-    text.toLowerCase().includes("hi")) {
-
-  response = "Hey! 💎 I'm Pearl. What are we figuring out today?";
-
-} else if (text.toLowerCase().includes("who are you")) {
-
-  response = "I'm Pearl 💎 — your friendly AI companion. You can ask me questions, show me things, or let me help you understand something.";
-
-} else if (text.toLowerCase().includes("thank")) {
-
-  response = "You're welcome! 💎 That's what I'm here for.";
-
-} else if (text.toLowerCase().includes("help")) {
-
-  response = "Absolutely! 💎 Tell me what you're trying to understand, and we'll figure it out together.";
-
-} else {
-
-  response = "That's a great question! 💎 I'm Pearl, and I'm ready to help you figure it out. Real AI-powered answers are coming next!";
-
+function openChat() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("chat").style.display = "block";
 }
 
-pearlMessage.textContent = response;";
+function goHome() {
+  document.getElementById("chat").style.display = "none";
+  document.getElementById("home").style.display = "block";
+}
 
-        messages.appendChild(pearlMessage);
+function showMessage(message) {
+  alert(message);
+}
 
-        messages.scrollTop = messages.scrollHeight;
+function sendMessage() {
 
-      }, 600);
-    }
+  var input = document.getElementById("userInput");
+  var text = input.value.trim();
 
-  </script></body>
+  if (text === "") {
+    return;
+  }
+
+  var messages = document.getElementById("messages");
+
+  var userMessage = document.createElement("div");
+  userMessage.className = "message user-message";
+  userMessage.innerText = text;
+
+  messages.appendChild(userMessage);
+
+  input.value = "";
+
+  setTimeout(function() {
+
+    var pearlMessage = document.createElement("div");
+    pearlMessage.className = "message pearl-message";
+
+    pearlMessage.innerText =
+      "That's a great question! 💎 I'm Pearl, and we're going to figure it out together.";
+
+    messages.appendChild(pearlMessage);
+
+    messages.scrollTop = messages.scrollHeight;
+
+  }, 500);
+}
+
+</script></body>
 </html>
